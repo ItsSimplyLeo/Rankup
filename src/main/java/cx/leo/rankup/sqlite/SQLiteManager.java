@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import java.io.File;
 import java.io.IOException;
 import java.sql.*;
-import java.util.Objects;
 import java.util.UUID;
 import java.util.logging.Level;
 
@@ -27,10 +26,6 @@ public class SQLiteManager {
     public SQLiteManager(RankupPlugin plugin) {
         this.plugin = plugin;
         this.load();
-    }
-
-    public Connection getConnection() {
-        return connection;
     }
 
     public void load() {

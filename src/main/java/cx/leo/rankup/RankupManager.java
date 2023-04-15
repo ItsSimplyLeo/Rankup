@@ -61,9 +61,7 @@ public class RankupManager {
     }
 
     private void setRankAsync(UUID uuid, Rank rank) {
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-            plugin.getSqLiteManager().setRank(uuid, rank);
-        });
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> plugin.getSqLiteManager().setRank(uuid, rank));
     }
 
     public void loadRank(Player player) {
