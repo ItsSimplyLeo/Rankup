@@ -1,0 +1,17 @@
+name: Rankup
+main: cx.leo.rankup.RankupPlugin
+version: 1.0
+api-version: 1.19
+authors: [ItsSimplyLeo]
+
+softdepend:
+  - 'Essentials'
+  - 'Vault'
+
+commands:
+  rankup:
+    description: "Attempt to rankup to the next rank."
+  rankupadmin:
+    aliases: ['ra']
+    description: "Admin command for Rankup plugin."
+    permission: "rankup.admin"

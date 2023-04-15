@@ -1,0 +1,13 @@
+ranks:
+  default:
+    price: 0 # Does not matter on the first rank, as it's what you start with.
+    permissions:
+      - 'essentials.kit.default'
+  beta:
+    price: 10000
+    permissions:
+      - 'essentials.kit.beta'
+  charlie:
+    price: 25000
+    permissions:
+      - 'essentials.kit.charlie'
