@@ -104,10 +104,7 @@ public class RankupManager {
 
     public void refreshPlayerRanks() {
         playerRanks.clear();
-        Bukkit.getOnlinePlayers().forEach(player -> {
-            //todo this...
-            player.sendMessage("update...");
-        });
+        Bukkit.getOnlinePlayers().forEach(this::loadRank);
     }
 
     public Rank getPlayerRank(Player player) {
