@@ -1,5 +1,6 @@
 package cx.leo.rankup;
 
+import cx.leo.rankup.commands.RanksCommand;
 import cx.leo.rankup.commands.RankupAdminCommand;
 import cx.leo.rankup.commands.RankupCommand;
 import cx.leo.rankup.listeners.PlayerJoinListener;
@@ -27,6 +28,7 @@ public class RankupPlugin extends JavaPlugin {
         this.rankupManager = new RankupManager(this);
         this.sqLiteManager = new SQLiteManager(this);
 
+        this.getCommand("ranks").setExecutor(new RanksCommand(this));
         this.getCommand("rankup").setExecutor(new RankupCommand(this));
         this.getCommand("rankupadmin").setExecutor(new RankupAdminCommand(this));
 

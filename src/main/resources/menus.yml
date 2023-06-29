@@ -1,0 +1,25 @@
+ranks:
+  rows: 5
+  filler:
+    border:
+      item:
+        material: GRAY_STAINED_GLASS_PANE
+        name: ' '
+  rank-item:
+    locked:
+      material: RED_STAINED_GLASS_PANE
+      name: '<aqua>Rank:</aqua> <rank> <gray>(LOCKED)'
+      lore:
+        - ''
+        - '<red>- <white>Cost: <dark_green>$<green><cost>'
+        - '<red>- <white>Bulk Cost: <dark_green>$<green><bulk_cost>'
+        - ''
+        - '<red>Click to purchase rank.'
+    unlocked:
+      material: GREEN_STAINED_GLASS_PANE
+      name: '<aqua>Rank:</aqua> <rank> <gray>(UNLOCKED)'
+      lore:
+        - ''
+        - '<green>- <white>Cost: <dark_green>$<green><cost>'
+        - ''
+        - '<green>You have unlocked this rank.'

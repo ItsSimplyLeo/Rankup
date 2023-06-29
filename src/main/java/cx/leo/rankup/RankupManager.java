@@ -1,6 +1,8 @@
 package cx.leo.rankup;
 
 import cx.leo.rankup.rank.Rank;
+import dev.triumphteam.gui.guis.Gui;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -100,6 +102,12 @@ public class RankupManager {
 
         this.plugin.getLogger().info(ranks.size() + " ranks have been loaded.");
         this.refreshPlayerRanks();
+    }
+
+    public void openRankGui(Player player) {
+        var gui = Gui.gui().title(Component.text("Ranks")).rows(5);
+
+        gui.create().open(player);
     }
 
     public void refreshPlayerRanks() {

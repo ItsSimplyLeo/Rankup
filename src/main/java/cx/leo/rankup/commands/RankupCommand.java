@@ -3,11 +3,13 @@ package cx.leo.rankup.commands;
 import cx.leo.rankup.RankupManager;
 import cx.leo.rankup.RankupPlugin;
 import cx.leo.rankup.rank.Rank;
+import net.kyori.adventure.text.Component;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class RankupCommand implements CommandExecutor {
 
@@ -18,9 +20,9 @@ public class RankupCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage("You need to be a player to execute this command.");
+            sender.sendMessage(Component.text("You need to be a player to execute this command."));
             return false;
         }
 

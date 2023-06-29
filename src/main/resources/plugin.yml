@@ -9,6 +9,8 @@ softdepend:
   - 'Vault'
 
 commands:
+  ranks:
+    description: "View all available ranks."
   rankup:
     description: "Attempt to rankup to the next rank."
   rankupadmin:
