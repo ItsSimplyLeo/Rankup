@@ -1,13 +1,13 @@
 ranks:
-  default:
+  A:
     price: 0 # Does not matter on the first rank, as it's what you start with.
     permissions:
-      - 'essentials.kit.default'
-  beta:
+      - 'essentials.warp.a'
+  B:
     price: 10000
     permissions:
-      - 'essentials.kit.beta'
-  charlie:
+      - 'essentials.warp.b'
+  C:
     price: 25000
     permissions:
-      - 'essentials.kit.charlie'
+      - 'essentials.warp.c'
