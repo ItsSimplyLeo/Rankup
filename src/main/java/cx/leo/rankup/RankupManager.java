@@ -2,6 +2,7 @@ package cx.leo.rankup;
 
 import cx.leo.rankup.rank.Rank;
 import cx.leo.rankup.utils.ComponentUtils;
+import cx.leo.rankup.utils.FormatUtils;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import dev.triumphteam.gui.guis.GuiItem;
@@ -147,8 +148,8 @@ public class RankupManager {
         }
 
         var rankPlaceholder = Placeholder.parsed("rank", target.getId());
-        var pricePlaceholder = Placeholder.parsed("cost", String.valueOf(target.getPrice()));
-        var priceBulkPlaceholder = Placeholder.parsed("bulk_cost", String.valueOf(bulkCost));
+        var pricePlaceholder = Placeholder.parsed("cost", FormatUtils.currency(target.getPrice()));
+        var priceBulkPlaceholder = Placeholder.parsed("bulk_cost", FormatUtils.currency(bulkCost));
         
         var placeholders = Arrays.asList(rankPlaceholder, pricePlaceholder, priceBulkPlaceholder);
 
