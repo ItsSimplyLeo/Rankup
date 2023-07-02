@@ -15,7 +15,7 @@ repositories {
 dependencies {
     paperweight.paperDevBundle("1.19.4-R0.1-SNAPSHOT")
 
-    compileOnly("com.github.MilkBowl:VaultAPI:1.7")
+    compileOnly("net.milkbowl.vault:VaultAPI:1.7")
     implementation("dev.triumphteam:triumph-gui:3.1.5")
 }
 
