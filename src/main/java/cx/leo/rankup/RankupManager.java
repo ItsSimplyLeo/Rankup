@@ -1,17 +1,20 @@
 package cx.leo.rankup;
 
 import cx.leo.rankup.rank.Rank;
+import cx.leo.rankup.utils.ComponentUtils;
+import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
+import dev.triumphteam.gui.guis.GuiItem;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class RankupManager {
 
@@ -51,6 +54,10 @@ public class RankupManager {
 
     public boolean hasNextRank(int index) {
         return ranks.size() > index;
+    }
+
+    public boolean isCompleted(Rank current, Rank check) {
+        return ranks.indexOf(current) >= ranks.indexOf(check);
     }
 
     public void setRank(Player player, Rank rank) {
@@ -105,9 +112,53 @@ public class RankupManager {
     }
 
     public void openRankGui(Player player) {
-        var gui = Gui.gui().title(Component.text("Ranks")).rows(5);
+        final FileConfiguration menus = plugin.getConfigManager().getMenus().getConfig();
 
-        gui.create().open(player);
+        var gui = Gui.gui().title(ComponentUtils.parse(menus.getString("ranks.title", "Ranks"))).rows(5).disableAllInteractions().create();
+
+        var item = ItemBuilder.from(Material.GRAY_STAINED_GLASS_PANE).name(Component.text(" ")).asGuiItem();
+        gui.getFiller().fillBorder(item);
+
+        for (Rank rank : ranks) {
+            gui.addItem(createRankItem(rank, getPlayerRank(player)));
+        }
+
+        gui.open(player);
+    }
+
+    private GuiItem createRankItem(Rank target, Rank current) {
+        final FileConfiguration menus = plugin.getConfigManager().getMenus().getConfig();
+        String sec = "ranks.rank-item.";
+
+        boolean unlocked = isCompleted(target, current);
+
+        if (unlocked) sec = sec + "unlocked.";
+        else sec = sec + "locked.";
+
+        double bulkCost = 0d;
+
+        for (Rank rank : ranks) {
+            if (rank == target) {
+                bulkCost += rank.getPrice();
+                break;
+            }
+
+            if (!isCompleted(current, rank)) bulkCost += rank.getPrice();
+        }
+
+        var rankPlaceholder = Placeholder.parsed("rank", target.getId());
+        var pricePlaceholder = Placeholder.parsed("cost", String.valueOf(target.getPrice()));
+        var priceBulkPlaceholder = Placeholder.parsed("bulk_cost", String.valueOf(bulkCost));
+        
+        var placeholders = Arrays.asList(rankPlaceholder, pricePlaceholder, priceBulkPlaceholder);
+
+        ItemBuilder builder = ItemBuilder
+                .from(Material.valueOf(menus.getString(sec + "material", "BARRIER")))
+                .name(ComponentUtils.parse(menus.getString(sec + "name"), TagResolver.resolver(placeholders)))
+                .lore(ComponentUtils.parseToList(menus.getStringList(sec + "lore"), TagResolver.resolver(placeholders)))
+                ;
+
+        return builder.asGuiItem();
     }
 
     public void refreshPlayerRanks() {
