@@ -103,7 +103,9 @@ public class RankManager {
 
         section.getKeys(false).forEach(
                 rankId -> {
-                    Rank newRank = new Rank(rankId, configuration.getDouble("ranks." + rankId + ".price"));
+                    double cost = configuration.getDouble("ranks." + rankId + ".price");
+                    List<String> permissions = configuration.getStringList("ranks." + rankId + ".permissions");
+                    Rank newRank = new Rank(rankId, cost, permissions);
                     ranks.add(newRank);
                 }
         );
