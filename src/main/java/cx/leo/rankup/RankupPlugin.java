@@ -3,6 +3,7 @@ package cx.leo.rankup;
 import cx.leo.rankup.commands.RanksCommand;
 import cx.leo.rankup.commands.RankupAdminCommand;
 import cx.leo.rankup.commands.RankupCommand;
+import cx.leo.rankup.config.ConfigManager;
 import cx.leo.rankup.listeners.PlayerJoinListener;
 import cx.leo.rankup.sqlite.SQLiteManager;
 import cx.leo.rankup.yaml.Yaml;
@@ -15,16 +16,15 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 public class RankupPlugin extends JavaPlugin {
 
     private Economy econ;
-    private Yaml config;
+    private ConfigManager configManager;
     private RankupManager rankupManager;
-
     private SQLiteManager sqLiteManager;
 
     @Override
     public void onEnable() {
         this.checkVault();
 
-        this.config = new Yaml(this, "config");
+        this.configManager = new ConfigManager(this);
         this.rankupManager = new RankupManager(this);
         this.sqLiteManager = new SQLiteManager(this);
 
@@ -47,6 +47,10 @@ public class RankupPlugin extends JavaPlugin {
         return sqLiteManager;
     }
 
+    public ConfigManager getConfigManager() {
+        return configManager;
+    }
+
     public void checkVault() {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             getLogger().warning("Vault not found, disabling plugin.");
@@ -63,23 +67,23 @@ public class RankupPlugin extends JavaPlugin {
     }
 
     public void reload() {
-        this.reloadConfig();
+        this.configManager.reload();
         this.rankupManager.reload();
     }
 
     @Override
     @NonNull
     public FileConfiguration getConfig() {
-        return config.getConfig();
+        return configManager.getConfig().getConfig();
     }
 
     @Override
     public void reloadConfig() {
-        config.reload();
+        configManager.getConfig().reload();
     }
 
     @Override
     public void saveConfig() {
-        config.save();
+        configManager.getConfig().save();
     }
 }
