@@ -103,7 +103,7 @@ public class SQLiteManager {
         try {
             statement = connection.prepareStatement("REPLACE INTO player_ranks (uuid,rank) VALUES(?,?);");
             statement.setString(1, uuid.toString());
-            statement.setString(2, rank.getId());
+            statement.setString(2, rank.id());
             statement.executeUpdate();
         } catch (SQLException ex) {
             plugin.getLogger().severe("Error whilst getting player...");
@@ -124,7 +124,7 @@ public class SQLiteManager {
         try {
             statement = connection.prepareStatement("INSERT INTO player_ranks (uuid,rank) VALUES(?,?);");
             statement.setString(1, uuid.toString());
-            statement.setString(2, rank.getId());
+            statement.setString(2, rank.id());
             statement.executeUpdate();
         } catch (SQLException ex) {
             plugin.getLogger().severe("Error whilst inserting player...");

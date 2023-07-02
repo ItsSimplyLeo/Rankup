@@ -1,6 +1,6 @@
 package cx.leo.rankup.commands;
 
-import cx.leo.rankup.RankupManager;
+import cx.leo.rankup.rank.RankManager;
 import cx.leo.rankup.RankupPlugin;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -19,8 +19,8 @@ public class RanksCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
-        RankupManager rankupManager = plugin.getRankupManager();
-        rankupManager.openRankGui((Player) sender);
+        RankManager rankManager = plugin.getRankupManager();
+        rankManager.openRankGui((Player) sender);
 
         return false;
     }

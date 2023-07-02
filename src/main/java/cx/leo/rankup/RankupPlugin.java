@@ -5,8 +5,8 @@ import cx.leo.rankup.commands.RankupAdminCommand;
 import cx.leo.rankup.commands.RankupCommand;
 import cx.leo.rankup.config.ConfigManager;
 import cx.leo.rankup.listeners.PlayerJoinListener;
+import cx.leo.rankup.rank.RankManager;
 import cx.leo.rankup.sqlite.SQLiteManager;
-import cx.leo.rankup.yaml.Yaml;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -17,7 +17,7 @@ public class RankupPlugin extends JavaPlugin {
 
     private Economy econ;
     private ConfigManager configManager;
-    private RankupManager rankupManager;
+    private RankManager rankManager;
     private SQLiteManager sqLiteManager;
 
     @Override
@@ -25,7 +25,7 @@ public class RankupPlugin extends JavaPlugin {
         this.checkVault();
 
         this.configManager = new ConfigManager(this);
-        this.rankupManager = new RankupManager(this);
+        this.rankManager = new RankManager(this);
         this.sqLiteManager = new SQLiteManager(this);
 
         this.getCommand("ranks").setExecutor(new RanksCommand(this));
@@ -39,8 +39,8 @@ public class RankupPlugin extends JavaPlugin {
         return econ;
     }
 
-    public RankupManager getRankupManager() {
-        return rankupManager;
+    public RankManager getRankupManager() {
+        return rankManager;
     }
 
     public SQLiteManager getSqLiteManager() {
@@ -68,7 +68,7 @@ public class RankupPlugin extends JavaPlugin {
 
     public void reload() {
         this.configManager.reload();
-        this.rankupManager.reload();
+        this.rankManager.reload();
     }
 
     @Override

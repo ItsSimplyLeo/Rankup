@@ -1,6 +1,6 @@
-package cx.leo.rankup;
+package cx.leo.rankup.rank;
 
-import cx.leo.rankup.rank.Rank;
+import cx.leo.rankup.RankupPlugin;
 import cx.leo.rankup.utils.ComponentUtils;
 import cx.leo.rankup.utils.FormatUtils;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
@@ -17,13 +17,13 @@ import org.bukkit.entity.Player;
 
 import java.util.*;
 
-public class RankupManager {
+public class RankManager {
 
     private final RankupPlugin plugin;
     private final List<Rank> ranks;
     private final HashMap<UUID, Rank> playerRanks;
 
-    public RankupManager(RankupPlugin plugin) {
+    public RankManager(RankupPlugin plugin) {
         this.plugin = plugin;
         this.ranks = new ArrayList<>();
         this.playerRanks = new HashMap<>();
@@ -81,7 +81,7 @@ public class RankupManager {
             if (rank == null) {
                 newRank = ranks.get(0);
                 plugin.getSqLiteManager().insertRank(player.getUniqueId(), newRank);
-            } else newRank = ranks.stream().filter(r -> r.getId().equalsIgnoreCase(rank)).findFirst().orElse(null);
+            } else newRank = ranks.stream().filter(r -> r.id().equalsIgnoreCase(rank)).findFirst().orElse(null);
 
             playerRanks.put(player.getUniqueId(), newRank);
         });
@@ -140,15 +140,15 @@ public class RankupManager {
 
         for (Rank rank : ranks) {
             if (rank == target) {
-                bulkCost += rank.getPrice();
+                bulkCost += rank.price();
                 break;
             }
 
-            if (!isCompleted(current, rank)) bulkCost += rank.getPrice();
+            if (!isCompleted(current, rank)) bulkCost += rank.price();
         }
 
-        var rankPlaceholder = Placeholder.parsed("rank", target.getId());
-        var pricePlaceholder = Placeholder.parsed("cost", FormatUtils.currency(target.getPrice()));
+        var rankPlaceholder = Placeholder.parsed("rank", target.id());
+        var pricePlaceholder = Placeholder.parsed("cost", FormatUtils.currency(target.price()));
         var priceBulkPlaceholder = Placeholder.parsed("bulk_cost", FormatUtils.currency(bulkCost));
         
         var placeholders = Arrays.asList(rankPlaceholder, pricePlaceholder, priceBulkPlaceholder);
