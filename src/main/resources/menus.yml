@@ -1,4 +1,5 @@
 ranks:
+  title: "Available Rankups"
   rows: 5
   filler:
     border:
